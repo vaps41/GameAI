@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - GamePrice AI</title>
+  <meta name="description" content="Analyze video game prices and get deal recommendations.">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-functions-compat.js"></script>
+
+  <!-- Stripe.js -->
+  <script src="https://js.stripe.com/v3/"></script>
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="navbar-content">
+      <a href="index.html" class="logo">
+        <div class="logo-icon">🎮</div>
+        <span>GamePrice AI</span>
+      </a>
+
+      <div class="nav-links hidden md:flex">
+        <a href="dashboard.html" class="nav-link active">Dashboard</a>
+        <a href="favorites.html" class="nav-link">Favorites</a>
+        <a href="history.html" class="nav-link">History</a>
+        <a href="free-games.html" class="nav-link">Free Games</a>
+        <a href="account.html" class="nav-link">Account</a>
+      </div>
+
+      <div class="nav-buttons">
+        <div class="usage-display">
+          <span class="usage-badge">Loading...</span>
+        </div>
+        <button id="logout-btn" class="btn btn-secondary">Logout</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Dashboard -->
+  <main class="dashboard">
+    <div class="container-narrow">
+      <!-- Upgrade CTA (shown for non-diamond users) -->
+      <div id="upgrade-cta" class="upgrade-cta" style="display: none; margin-top: 0; margin-bottom: 2rem;">
+        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
+          <div>
+            <h3 style="margin-bottom: 0.5rem; color: var(--accent-purple);">⭐ Upgrade Your Experience</h3>
+            <p style="color: var(--text-secondary); margin: 0;">
+              Get more analyses, save favorites, and unlock best time to buy analysis.
+            </p>
+          </div>
+          <a href="account.html#pricing" class="btn btn-purple btn-lg btn-pulse-reminder">
+            View Plans
+          </a>
+        </div>
+      </div>
+
+      <!-- Dashboard Header -->
+      <div class="dashboard-header">
+        <h1 class="dashboard-title">Price Analyzer</h1>
+        <p style="color: var(--text-secondary);">
+          Paste a game store URL to get instant price analysis and deal recommendations.
+        </p>
+      </div>
+
+      <!-- Analysis Card -->
+      <div class="analysis-card">
+        <form id="analyze-form">
+          <div class="analysis-input-group">
+            <input type="text" id="game-url" class="analysis-input"
+              placeholder="Paste game store URL or type a game name" required>
+            <button type="submit" id="analyze-btn" class="btn btn-primary btn-lg" style="white-space: nowrap;">
+              Analyze
+            </button>
+          </div>
+          <p style="color: var(--text-muted); font-size: 0.875rem; margin-top: 0.75rem;">
+            💡 <strong>Tip:</strong> We support Steam, GOG, Epic Games Store, and more. You can also type a game name.
+          </p>
+        </form>
+      </div>
+
+      <!-- Results Container -->
+      <div id="results-container" class="hidden"></div>
+
+      <!-- Recent History -->
+      <div class="account-card" style="margin-top: 2rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+          <h3 style="margin: 0;">📊 Recent Analyses</h3>
+          <a href="history.html" class="btn btn-sm btn-secondary">View All</a>
+        </div>
+        <div id="recent-history-container">
+          <p style="color: var(--text-muted); text-align: center; padding: 2rem;">No recent analyses</p>
+        </div>
+      </div>
+
+      <!-- Quick Links -->
+      <div style="margin-top: 2rem;">
+        <h3 style="margin-bottom: 1rem;">Quick Access</h3>
+        <div class="features-grid" style="grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));">
+          <a href="favorites.html" class="feature-card" style="text-align: center; text-decoration: none;">
+            <div class="feature-icon" style="margin: 0 auto 1rem; background: var(--gradient-purple);">❤️</div>
+            <h4 class="feature-title" style="font-size: 1rem;">My Favorites</h4>
+          </a>
+          <a href="history.html" class="feature-card" style="text-align: center; text-decoration: none;">
+            <div class="feature-icon" style="margin: 0 auto 1rem; background: var(--gradient-primary);">📜</div>
+            <h4 class="feature-title" style="font-size: 1rem;">History</h4>
+          </a>
+          <a href="free-games.html" class="feature-card" style="text-align: center; text-decoration: none;">
+            <div class="feature-icon" style="margin: 0 auto 1rem; background: var(--gradient-success);">🎁</div>
+            <h4 class="feature-title" style="font-size: 1rem;">Free Games</h4>
+          </a>
+          <a href="account.html" class="feature-card" style="text-align: center; text-decoration: none;">
+            <div class="feature-icon"
+              style="margin: 0 auto 1rem; background: linear-gradient(135deg, #fbbf24, #f59e0b);">⚙️</div>
+            <h4 class="feature-title" style="font-size: 1rem;">Settings</h4>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p class="footer-text">
+        © 2024 GamePrice AI. All rights reserved.
+      </p>
+    </div>
+  </footer>
+
+  <!-- Application Scripts -->
+  <script src="js/config.js"></script>
+  <script src="js/firebase.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/stripe.js"></script>
+  <script src="js/app.js"></script>
+
+  <script>
+    // Show upgrade CTA for non-diamond users
+    document.addEventListener('DOMContentLoaded', async () => {
+      await new Promise(resolve => setTimeout(resolve, 1500));
+
+      const user = window.Auth?.getCurrentUser();
+      if (user) {
+        const userData = await window.userDoc.get(user.uid);
+        if (userData?.plan !== 'diamond') {
+          const upgradeCta = document.getElementById('upgrade-cta');
+          if (upgradeCta) upgradeCta.style.display = 'block';
+        }
+      }
+    });
+  </script>
+</body>
+
+</html>

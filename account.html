@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Account - GamePrice AI</title>
+  <meta name="description" content="Manage your GamePrice AI account and subscription.">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-functions-compat.js"></script>
+
+  <!-- Stripe.js -->
+  <script src="https://js.stripe.com/v3/"></script>
+
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="navbar-content">
+      <a href="index.html" class="logo">
+        <div class="logo-icon">🎮</div>
+        <span>GamePrice AI</span>
+      </a>
+
+      <div class="nav-links hidden md:flex">
+        <a href="dashboard.html" class="nav-link">Dashboard</a>
+        <a href="favorites.html" class="nav-link">Favorites</a>
+        <a href="history.html" class="nav-link">History</a>
+        <a href="free-games.html" class="nav-link">Free Games</a>
+        <a href="account.html" class="nav-link active">Account</a>
+      </div>
+
+      <div class="nav-buttons" style="display: flex; align-items: center; gap: 0.75rem;">
+        <div class="usage-display">
+          <span class="usage-badge">Loading...</span>
+        </div>
+        <a href="dashboard.html" class="btn btn-primary" style="margin-right: 10px;">Back to Game Analysis</a>
+        <button id="logout-btn" class="btn btn-secondary">Logout</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Account Page -->
+  <main class="account-page">
+    <div class="container-narrow">
+      <!-- Page Header -->
+      <div class="dashboard-header">
+        <h1 class="dashboard-title">Account Settings</h1>
+        <p style="color: var(--text-secondary);">
+          Manage your profile and subscription
+        </p>
+      </div>
+
+      <!-- Profile Card -->
+      <div class="account-card">
+        <h3 class="account-section-title">👤 Profile Information</h3>
+
+        <div class="info-row">
+          <span class="info-label">Email Address</span>
+          <span class="info-value account-email">Loading...</span>
+        </div>
+
+        <div class="info-row">
+          <span class="info-label">Account ID</span>
+          <span class="info-value" id="account-id"
+            style="font-size: 0.875rem; color: var(--text-muted);">Loading...</span>
+        </div>
+      </div>
+
+      <!-- Subscription Card -->
+      <div class="account-card">
+        <h3 class="account-section-title">💎 Current Subscription</h3>
+
+        <div class="info-row">
+          <span class="info-label">Current Plan</span>
+          <span class="plan-badge free">Loading...</span>
+        </div>
+
+        <div class="info-row">
+          <span class="info-label">Monthly Analyses</span>
+          <span class="info-value usage-display">Loading...</span>
+        </div>
+
+        <div class="info-row" id="subscription-status-row" style="display: none;">
+          <span class="info-label">Status</span>
+          <span class="info-value" style="color: var(--accent-success);">✓ Active</span>
+        </div>
+
+        <div class="mt-4" id="subscription-actions">
+          <!-- Free user actions -->
+          <div id="free-user-actions">
+            <a href="#pricing" class="btn btn-primary">
+              Upgrade Your Plan
+            </a>
+          </div>
+
+          <!-- Paid user actions -->
+          <div id="pro-user-actions" style="display: none;">
+            <button id="manage-subscription-btn" class="btn btn-secondary">
+              Manage Subscription
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Plan Comparison -->
+      <div id="pricing" class="account-card">
+        <h3 class="account-section-title">📊 Plan Comparison</h3>
+
+        <div style="overflow-x: auto;">
+          <table class="comparison-table">
+            <thead>
+              <tr>
+                <th>Feature</th>
+                <th style="text-align: center;">Free</th>
+                <th style="text-align: center; color: var(--accent-success);">Bronze</th>
+                <th style="text-align: center; color: var(--accent-purple);">Silver</th>
+                <th style="text-align: center; color: #fbbf24;">Gold</th>
+                <th style="text-align: center; color: #38bdf8;">Diamond</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Monthly Analyses</td>
+                <td style="text-align: center;">5</td>
+                <td style="text-align: center; color: var(--accent-success);">50</td>
+                <td style="text-align: center; color: var(--accent-purple);">200</td>
+                <td style="text-align: center; color: #fbbf24;">500</td>
+                <td style="text-align: center; color: #38bdf8;">Unlimited</td>
+              </tr>
+              <tr>
+                <td>Price Analysis & History</td>
+                <td style="text-align: center; color: var(--accent-success);">✓</td>
+                <td style="text-align: center; color: var(--accent-success);">✓</td>
+                <td style="text-align: center; color: var(--accent-success);">✓</td>
+                <td style="text-align: center; color: var(--accent-success);">✓</td>
+                <td style="text-align: center; color: var(--accent-success);">✓</td>
+              </tr>
+              <tr>
+                <td>Official Free Games Links</td>
+                <td style="text-align: center; color: var(--accent-success);">✓</td>
+                <td style="text-align: center; color: var(--accent-success);">✓</td>
+                <td style="text-align: center; color: var(--accent-success);">✓</td>
+                <td style="text-align: center; color: var(--accent-success);">✓</td>
+                <td style="text-align: center; color: var(--accent-success);">✓</td>
+              </tr>
+              <tr>
+                <td>Save Favorites</td>
+                <td style="text-align: center; color: var(--text-muted);">—</td>
+                <td style="text-align: center; color: var(--accent-success);">✓</td>
+                <td style="text-align: center; color: var(--accent-success);">✓</td>
+                <td style="text-align: center; color: var(--accent-success);">✓</td>
+                <td style="text-align: center; color: var(--accent-success);">✓</td>
+              </tr>
+              <tr>
+                <td>Best Time to Buy</td>
+                <td style="text-align: center; color: var(--text-muted);">—</td>
+                <td style="text-align: center; color: var(--text-muted);">—</td>
+                <td style="text-align: center; color: var(--accent-success);">✓</td>
+                <td style="text-align: center; color: var(--accent-success);">✓</td>
+                <td style="text-align: center; color: var(--accent-success);">✓</td>
+              </tr>
+              <tr>
+                <td>Priority Support</td>
+                <td style="text-align: center; color: var(--text-muted);">—</td>
+                <td style="text-align: center; color: var(--text-muted);">—</td>
+                <td style="text-align: center; color: var(--text-muted);">—</td>
+                <td style="text-align: center; color: var(--accent-success);">✓</td>
+                <td style="text-align: center; color: var(--accent-success);">✓</td>
+              </tr>
+              <tr>
+                <td>Deeper AI Analysis</td>
+                <td style="text-align: center; color: var(--text-muted);">—</td>
+                <td style="text-align: center; color: var(--text-muted);">—</td>
+                <td style="text-align: center; color: var(--text-muted);">—</td>
+                <td style="text-align: center; color: var(--accent-success);">✓</td>
+                <td style="text-align: center; color: var(--accent-success);">✓</td>
+              </tr>
+              <tr>
+                <td><strong>Price</strong></td>
+                <td style="text-align: center;"><strong>Free</strong></td>
+                <td style="text-align: center; color: var(--accent-success);"><strong>$6.25/mo</strong></td>
+                <td style="text-align: center; color: var(--accent-purple);"><strong>$10.23/mo</strong></td>
+                <td style="text-align: center; color: #fbbf24;"><strong>$35.27/mo</strong></td>
+                <td style="text-align: center; color: #38bdf8;"><strong>$52.15/mo</strong></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Upgrade Buttons -->
+        <div
+          style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin-top: 2rem;">
+          <button onclick="App.handlePlanUpgrade('bronze')" class="btn btn-success" style="font-size: 0.85rem;">
+            Upgrade Bronze
+          </button>
+          <button onclick="App.handlePlanUpgrade('silver')" class="btn btn-purple" style="font-size: 0.85rem;">
+            Upgrade Silver
+          </button>
+          <button onclick="App.handlePlanUpgrade('gold')" class="btn btn-primary"
+            style="background: linear-gradient(135deg, #fbbf24, #f59e0b); border: none; font-size: 0.85rem;">
+            Go Gold
+          </button>
+          <button onclick="App.handlePlanUpgrade('diamond')" class="btn btn-primary"
+            style="background: linear-gradient(135deg, #38bdf8, #3b82f6); border: none; font-size: 0.85rem;">
+            Go Diamond
+          </button>
+        </div>
+      </div>
+
+      <!-- Danger Zone -->
+      <div class="account-card" style="border-color: var(--accent-danger);">
+        <h3 class="account-section-title" style="color: var(--accent-danger);">⚠️ Danger Zone</h3>
+
+        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
+          <div>
+            <h4 style="margin-bottom: 0.25rem;">Sign Out</h4>
+            <p style="color: var(--text-secondary); margin: 0; font-size: 0.875rem;">
+              Sign out of your account on this device
+            </p>
+          </div>
+          <button id="logout-btn-danger" class="btn btn-secondary"
+            style="border-color: var(--accent-danger); color: var(--accent-danger);">
+            Sign Out
+          </button>
+        </div>
+      </div>
+
+      <!-- Analyze More CTA -->
+      <div class="account-card" style="margin-top: 2rem; text-align: center;">
+        <p style="color: var(--text-secondary); margin-bottom: 1rem;">
+          Want to analyze more games?
+        </p>
+        <a href="dashboard.html" class="btn btn-primary">
+          Analyze a Game
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p class="footer-text">
+        © 2024 GamePrice AI. All rights reserved.
+      </p>
+    </div>
+  </footer>
+
+  <!-- Application Scripts -->
+  <script src="js/config.js"></script>
+  <script src="js/firebase.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/stripe.js"></script>
+  <script src="js/app.js"></script>
+
+  <script>
+    // Handle plan upgrade
+    App.handlePlanUpgrade = async function (planType) {
+      if (!window.StripeIntegration) {
+        this.showError('Payment system not available');
+        return;
+      }
+
+      const result = await window.StripeIntegration.createCheckoutSession(planType);
+
+      if (!result.success && !result.mock) {
+        this.showError(result.error || 'Failed to start checkout');
+      }
+    };
+
+    // Additional account page initialization
+    document.addEventListener('DOMContentLoaded', async () => {
+      // Wait for auth to be ready
+      await new Promise(resolve => {
+        const check = () => {
+          if (window.Auth && window.Auth.currentUser !== undefined) {
+            resolve();
+          } else {
+            setTimeout(check, 100);
+          }
+        };
+        check();
+      });
+
+      const user = window.Auth.getCurrentUser();
+      if (user) {
+        // Update account ID
+        const accountIdEl = document.getElementById('account-id');
+        if (accountIdEl) {
+          accountIdEl.textContent = user.uid.substring(0, 12) + '...';
+        }
+
+        // Load subscription data
+        if (window.subscriptionManager) {
+          const sub = await window.subscriptionManager.getSubscription(user.uid);
+
+          // Update plan badge
+          const planBadges = document.querySelectorAll('.plan-badge');
+          planBadges.forEach(el => {
+            el.className = `plan-badge ${sub.plan}`;
+            el.textContent = sub.plan.charAt(0).toUpperCase() + sub.plan.slice(1);
+          });
+
+          // Show/hide subscription sections
+          const freeActions = document.getElementById('free-user-actions');
+          const proActions = document.getElementById('pro-user-actions');
+          const subscriptionStatusRow = document.getElementById('subscription-status-row');
+
+          if (sub.plan !== 'free') {
+            if (freeActions) freeActions.style.display = 'none';
+            if (proActions) proActions.style.display = 'block';
+            if (subscriptionStatusRow) subscriptionStatusRow.style.display = 'flex';
+          } else {
+            if (freeActions) freeActions.style.display = 'block';
+            if (proActions) proActions.style.display = 'none';
+            if (subscriptionStatusRow) subscriptionStatusRow.style.display = 'none';
+          }
+        }
+      }
+
+      // Danger zone logout button
+      const dangerLogoutBtn = document.getElementById('logout-btn-danger');
+      if (dangerLogoutBtn) {
+        dangerLogoutBtn.addEventListener('click', async () => {
+          if (window.App) {
+            await window.App.handleLogout();
+          }
+        });
+      }
+    });
+  </script>
+</body>
+
+</html>

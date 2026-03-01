@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Free Games - GamePrice AI</title>
+  <meta name="description" content="Discover free games and limited-time offers on GamePrice AI.">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-functions-compat.js"></script>
+
+  <!-- Stripe.js -->
+  <script src="https://js.stripe.com/v3/"></script>
+
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="navbar-content">
+      <a href="index.html" class="logo">
+        <div class="logo-icon">🎮</div>
+        <span>GamePrice AI</span>
+      </a>
+
+      <div class="nav-links hidden md:flex">
+        <a href="dashboard.html" class="nav-link auth-link hidden">Dashboard</a>
+        <a href="favorites.html" class="nav-link auth-link hidden">Favorites</a>
+        <a href="history.html" class="nav-link auth-link hidden">History</a>
+        <a href="free-games.html" class="nav-link active">Free Games</a>
+        <a href="account.html" class="nav-link auth-link hidden">Account</a>
+      </div>
+
+      <div class="nav-buttons">
+        <!-- Guest buttons -->
+        <div class="guest-link">
+          <a href="index.html" class="btn btn-secondary">Back to Game Analysis</a>
+          <a href="login.html" class="btn btn-primary">Log In</a>
+        </div>
+
+        <!-- Auth buttons -->
+        <div class="auth-link hidden">
+          <div style="display: flex; align-items: center; gap: 0.75rem;">
+            <div class="usage-display">
+              <span class="usage-badge">Loading...</span>
+            </div>
+            <a href="dashboard.html" class="btn btn-primary">Back to Game Analysis</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Free Games Page -->
+  <main class="dashboard">
+    <div class="container">
+      <!-- Page Header -->
+      <div class="dashboard-header">
+        <h1 class="dashboard-title">🎁 Free Games</h1>
+        <p style="color: var(--text-secondary);">
+          Discover free-to-play games and limited-time offers from various platforms.
+        </p>
+      </div>
+
+      <!-- Filter Buttons -->
+      <div style="display: flex; gap: 0.5rem; margin-bottom: 2rem; flex-wrap: wrap;">
+        <button class="btn btn-primary btn-sm filter-btn active" data-filter="all">All</button>
+        <button class="btn btn-secondary btn-sm filter-btn" data-filter="pc">PC</button>
+        <button class="btn btn-secondary btn-sm filter-btn" data-filter="steam">Steam</button>
+        <button class="btn btn-secondary btn-sm filter-btn" data-filter="epic">Epic</button>
+        <button class="btn btn-secondary btn-sm filter-btn" data-filter="limited">Limited Time</button>
+      </div>
+
+      <!-- Free Games Container -->
+      <div id="free-games-container">
+        <div class="text-center" style="padding: 3rem;">
+          <span class="spinner"></span>
+          <p style="color: var(--text-muted); margin-top: 1rem;">Loading free games...</p>
+        </div>
+      </div>
+
+      <!-- Info Card -->
+      <div class="account-card" style="margin-top: 3rem;">
+        <h4 style="margin-bottom: 1rem;">ℹ️ About Free Games</h4>
+        <p style="color: var(--text-secondary); margin: 0;">
+          We track free games from various sources including Steam, Epic Games Store, GOG, and more.
+          <strong>Limited Time</strong> offers are free for a specific period - make sure to claim them before they
+          expire!
+          <strong>Free to Play</strong> games are always free but may include in-game purchases.
+        </p>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p class="footer-text">
+        © 2024 GamePrice AI. All rights reserved.
+      </p>
+    </div>
+  </footer>
+
+  <!-- Application Scripts -->
+  <script src="js/config.js"></script>
+  <script src="js/firebase.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/stripe.js"></script>
+  <script src="js/app.js"></script>
+
+  <script>
+    // Filter functionality
+    document.addEventListener('DOMContentLoaded', () => {
+      const filterBtns = document.querySelectorAll('.filter-btn');
+      filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          filterBtns.forEach(b => {
+            b.classList.remove('btn-primary', 'active');
+            b.classList.add('btn-secondary');
+          });
+          btn.classList.remove('btn-secondary');
+          btn.classList.add('btn-primary', 'active');
+
+          const filter = btn.dataset.filter.toLowerCase();
+          console.log('Filter by:', filter);
+          if (typeof App !== 'undefined' && App.filterFreeGames) {
+            App.filterFreeGames(filter);
+          }
+        });
+      });
+    });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GamePrice AI - Smart Game Price Analysis</title>
+  <meta name="description" content="Analyze video game prices and get deal recommendations with AI-powered insights.">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-functions-compat.js"></script>
+
+  <!-- Stripe.js -->
+  <script src="https://js.stripe.com/v3/"></script>
+
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="navbar-content">
+      <a href="index.html" class="logo">
+        <div class="logo-icon">🎮</div>
+        <span>GamePrice AI</span>
+      </a>
+
+      <div class="nav-links hidden md:flex">
+        <a href="#features" class="nav-link">Features</a>
+        <a href="#pricing" class="nav-link">Pricing</a>
+        <a href="free-games.html" class="nav-link">Free Games</a>
+      </div>
+
+      <div class="nav-buttons">
+        <!-- Guest buttons -->
+        <div class="guest-link">
+          <a href="login.html" class="btn btn-secondary">Log In</a>
+          <a href="signup.html" class="btn btn-primary">Sign Up</a>
+        </div>
+        <!-- Auth buttons (hidden by default) -->
+        <div class="auth-link hidden">
+          <a href="dashboard.html" class="btn btn-secondary">Dashboard</a>
+          <a href="account.html" class="btn btn-primary">Account</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Test Account Banner -->
+  <div
+    style="background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(59, 130, 246, 0.2)); border-bottom: 1px solid rgba(139, 92, 246, 0.3); padding: 0.75rem; text-align: center;">
+    <p style="margin: 0; font-size: 0.9rem; color: var(--text-secondary);">
+      🧪 <strong>Testing the app?</strong> Use our test account:
+      <code
+        style="background: var(--bg-tertiary); padding: 0.2rem 0.5rem; border-radius: 4px; color: var(--accent-primary);">test@gameprice.ai</code>
+      /
+      <code
+        style="background: var(--bg-tertiary); padding: 0.2rem 0.5rem; border-radius: 4px; color: var(--accent-primary);">Test123456</code>
+      <a href="login.html" style="color: var(--accent-purple); margin-left: 0.5rem; font-weight: 600;">Login →</a>
+    </p>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="hero" style="padding-top: 7rem;">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span>✨</span>
+        <span>AI-Powered Price Analysis</span>
+      </div>
+
+      <h1 class="hero-title">
+        Never Overpay for<br><span>Games Again</span>
+      </h1>
+
+      <p class="hero-subtitle">
+        GamePrice AI analyzes video game prices across stores, tracks historical lows,
+        and tells you exactly when to buy. Save money on every purchase.
+      </p>
+
+      <div class="hero-buttons">
+        <a href="signup.html" class="btn btn-primary btn-lg">
+          Get Started Free
+          <span>→</span>
+        </a>
+        <a href="free-games.html" class="btn btn-success btn-lg">
+          🎁 Free Games
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section id="features" class="features">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Powerful Features</h2>
+        <p class="section-subtitle">
+          Everything you need to make smart game purchasing decisions
+        </p>
+      </div>
+
+      <div class="features-grid">
+        <!-- Feature 1 -->
+        <div class="feature-card">
+          <div class="feature-icon">🔍</div>
+          <h3 class="feature-title">Price Analysis</h3>
+          <p class="feature-description">
+            Paste any game store URL and get instant analysis of current pricing,
+            historical data, and deal quality.
+          </p>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="feature-card">
+          <div class="feature-icon">📊</div>
+          <h3 class="feature-title">Historical Data</h3>
+          <p class="feature-description">
+            See the lowest price a game has ever been and understand price trends
+            to predict future discounts.
+          </p>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="feature-card">
+          <div class="feature-icon">🎯</div>
+          <h3 class="feature-title">Smart Recommendations</h3>
+          <p class="feature-description">
+            Our AI calculates a deal score and tells you whether to BUY, WAIT,
+            or PASS on every game.
+          </p>
+        </div>
+
+        <!-- Feature 4 -->
+        <div class="feature-card">
+          <div class="feature-icon">📅</div>
+          <h3 class="feature-title">Best Time to Buy</h3>
+          <p class="feature-description">
+            Know the best months to buy games based on historical sale patterns.
+            Plan your purchases strategically.
+          </p>
+        </div>
+
+        <!-- Feature 5 -->
+        <div class="feature-card">
+          <div class="feature-icon">❤️</div>
+          <h3 class="feature-title">Favorites</h3>
+          <p class="feature-description">
+            Save your favorite games and track their prices over time. Never miss
+            a price drop on games you want.
+          </p>
+        </div>
+
+        <!-- Feature 6 -->
+        <div class="feature-card">
+          <div class="feature-icon">🎁</div>
+          <h3 class="feature-title">Free Games Tracker</h3>
+          <p class="feature-description">
+            Discover free games and limited-time offers from various platforms.
+            Get notified about new free releases.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing Section -->
+  <section id="pricing" class="pricing">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Choose Your Plan</h2>
+        <p class="section-subtitle">
+          Start free and upgrade as you need more power
+        </p>
+      </div>
+
+      <div class="pricing-grid"
+        style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); max-width: 1400px; gap: 1.5rem;">
+        <!-- Free Plan -->
+        <div class="pricing-card">
+          <h3 class="pricing-name">Free</h3>
+          <div class="pricing-price">$0<span>/month</span></div>
+          <p class="pricing-description">
+            Perfect for casual gamers
+          </p>
+          <ul class="pricing-features">
+            <li>5 analyses per month</li>
+            <li>Current price data</li>
+            <li>Historical lows</li>
+            <li>Official free game links</li>
+            <li style="color: var(--text-muted); text-decoration: line-through;">Favorites</li>
+            <li style="color: var(--text-muted); text-decoration: line-through;">Best time analysis</li>
+          </ul>
+          <a href="signup.html" class="btn btn-secondary btn-full">
+            Get Started
+          </a>
+        </div>
+
+        <!-- Bronze Plan -->
+        <div class="pricing-card">
+          <h3 class="pricing-name" style="color: var(--accent-success);">Bronze</h3>
+          <div class="pricing-price" style="color: var(--accent-success);">$6.25<span>/month</span></div>
+          <p class="pricing-description">
+            For dedicated gamers
+          </p>
+          <ul class="pricing-features">
+            <li><strong>50 analyses per month</strong></li>
+            <li>Current price data</li>
+            <li>Historical lows</li>
+            <li>Official free game links</li>
+            <li>❤️ Save favorites</li>
+            <li style="color: var(--text-muted); text-decoration: line-through;">Best time analysis</li>
+          </ul>
+          <a href="signup.html" class="btn btn-success btn-full">
+            Upgrade to Bronze
+          </a>
+        </div>
+
+        <!-- Silver Plan -->
+        <div class="pricing-card silver">
+          <div class="pricing-badge" style="background: var(--accent-purple);">Most Popular</div>
+          <h3 class="pricing-name" style="color: var(--accent-purple);">Silver</h3>
+          <div class="pricing-price" style="color: var(--accent-purple);">$10.23<span>/month</span></div>
+          <p class="pricing-description">
+            For serious collectors
+          </p>
+          <ul class="pricing-features">
+            <li><strong>200 analyses per month</strong></li>
+            <li>Current price data</li>
+            <li>Historical lows</li>
+            <li>Official free game links</li>
+            <li>❤️ Save favorites</li>
+            <li>📅 Best time to buy analysis</li>
+          </ul>
+          <a href="signup.html" class="btn btn-purple btn-full">
+            Upgrade to Silver
+          </a>
+        </div>
+
+        <!-- Gold Plan -->
+        <div class="pricing-card gold">
+          <h3 class="pricing-name" style="color: #fbbf24;">Gold</h3>
+          <div class="pricing-price" style="color: #fbbf24;">$35.27<span>/month</span></div>
+          <p class="pricing-description">
+            Full toolkit for buyers
+          </p>
+          <ul class="pricing-features">
+            <li><strong style="color: #fbbf24;">500 analyses per month</strong></li>
+            <li>Current price data</li>
+            <li>Historical lows</li>
+            <li>Official free game links</li>
+            <li>❤️ Save favorites</li>
+            <li>📅 Best time to buy analysis</li>
+            <li>🧠 Deeper AI analysis</li>
+            <li>🚀 Priority support</li>
+          </ul>
+          <a href="signup.html" class="btn btn-primary btn-full"
+            style="background: linear-gradient(135deg, #fbbf24, #f59e0b); border: none;">
+            Go Gold
+          </a>
+        </div>
+
+        <!-- Diamond Plan -->
+        <div class="pricing-card diamond">
+          <div class="pricing-badge" style="background: linear-gradient(135deg, #38bdf8, #3b82f6);">Ultimate</div>
+          <h3 class="pricing-name" style="color: #38bdf8;">Diamond</h3>
+          <div class="pricing-price" style="color: #38bdf8;">$52.15<span>/month</span></div>
+          <p class="pricing-description">
+            Unlimited everything
+          </p>
+          <ul class="pricing-features">
+            <li><strong style="color: #38bdf8;">Unlimited analyses</strong></li>
+            <li>Current price data</li>
+            <li>Historical lows</li>
+            <li>Official free game links</li>
+            <li>❤️ Save favorites</li>
+            <li>📅 Best time to buy analysis</li>
+            <li>🧠 Deeper AI analysis</li>
+            <li>🚀 Priority support</li>
+          </ul>
+          <a href="signup.html" class="btn btn-primary btn-full"
+            style="background: linear-gradient(135deg, #38bdf8, #3b82f6); border: none;">
+            Go Diamond
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="features" style="padding: 4rem 0;">
+    <div class="container">
+      <div class="text-center" style="max-width: 600px; margin: 0 auto;">
+        <h2 class="section-title">Ready to Start Saving?</h2>
+        <p class="section-subtitle mb-4">
+          Join thousands of gamers who never overpay for games.
+          Sign up free and analyze your first game in seconds.
+        </p>
+        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+          <a href="signup.html" class="btn btn-primary btn-lg">
+            Create Free Account
+          </a>
+          <a href="free-games.html" class="btn btn-success btn-lg">
+            🎁 Browse Free Games
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p class="footer-text">
+        © 2024 GamePrice AI. All rights reserved.
+      </p>
+    </div>
+  </footer>
+
+  <!-- Application Scripts -->
+  <script src="js/config.js"></script>
+  <script src="js/firebase.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/stripe.js"></script>
+  <script src="js/app.js"></script>
+</body>
+
+</html>
