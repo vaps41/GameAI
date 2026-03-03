@@ -92,7 +92,7 @@ const StripeIntegration = {
       const idToken = await user.getIdToken();
 
       // Call your backend/cloud function to create checkout session
-      const response = await fetch('http://localhost:3000/api/create-checkout-session', {
+      const response = await fetch('/api/create-checkout-session', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -151,7 +151,7 @@ const StripeIntegration = {
       const idToken = await user.getIdToken();
 
       // Call your backend/cloud function to create portal session
-      const response = await fetch('http://localhost:3000/api/create-portal-session', {
+      const response = await fetch('/api/create-portal-session', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

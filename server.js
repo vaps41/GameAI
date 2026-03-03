@@ -1,7 +1,8 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+const stripeSecretKey = process.env.STRIPE_SECRET_KEY || 'sk_test_dummy';
+const stripe = require('stripe')(stripeSecretKey);
 
 const { GoogleGenerativeAI } = require('@google/generative-ai');
 
@@ -45,8 +46,8 @@ app.post('/api/create-checkout-session', async (req, res) => {
                 },
             ],
             mode: 'subscription',
-            success_url: successUrl || `http://127.0.0.1:8000/dashboard.html?checkout=success`,
-            cancel_url: cancelUrl || `http://127.0.0.1:8000/account.html?checkout=cancelled`,
+            success_url: successUrl || `${req.headers.origin || 'http://127.0.0.1:8000'}/dashboard.html?checkout=success`,
+            cancel_url: cancelUrl || `${req.headers.origin || 'http://127.0.0.1:8000'}/account.html?checkout=cancelled`,
         });
 
         res.json({ id: session.id, url: session.url });
@@ -65,9 +66,10 @@ app.post('/api/create-portal-session', async (req, res) => {
             return res.status(400).json({ error: 'Missing customerId' });
         }
 
+        const returnUrl = req.body.returnUrl || `${req.headers.origin || 'http://127.0.0.1:8000'}/account.html`;
         const portalSession = await stripe.billingPortal.sessions.create({
             customer: customerId,
-            return_url: `http://127.0.0.1:8000/account.html`,
+            return_url: returnUrl,
         });
 
         res.json({ url: portalSession.url });
@@ -147,4 +149,7 @@ app.get('/api/free-games', async (req, res) => {
 });
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Rodando Servidor Stripe na porta ${PORT}`));
+if (process.env.NODE_ENV !== 'production') {
+    app.listen(PORT, () => console.log(`Rodando Servidor Stripe na porta ${PORT}`));
+}
+module.exports = app;
