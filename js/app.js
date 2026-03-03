@@ -804,11 +804,18 @@ const App = {
         if (gameData && gameData.deals && gameData.deals.length > 0) {
           // get the actual current discounted price, fallback to retail if no discount
           const currentPrice = parseFloat(gameData.deals[0].price) || parseFloat(gameData.deals[0].retailPrice) || 29.99;
-          const cheapestPrice = parseFloat(gameData.cheapestPriceEver?.price) || parseFloat(gameData.deals[0].price) || currentPrice * 0.4;
+          const retailPrice = parseFloat(gameData.deals[0].retailPrice) || currentPrice;
+          const cheapestPrice = parseFloat(gameData.cheapestPriceEver?.price) || currentPrice;
 
-          // Calculate score based on current vs historical low
-          const ratio = currentPrice / (cheapestPrice * 2.5);
-          const score = Math.max(0, Math.min(100, Math.round((1 - ratio) * 100 + 50)));
+          // Calculate score based on current vs historical low and retail
+          const priceRange = retailPrice - cheapestPrice;
+          let score = 50; // default for unknown range
+          if (priceRange > 0) {
+            const ratio = (currentPrice - cheapestPrice) / priceRange;
+            score = Math.max(0, Math.min(100, Math.round((1 - ratio) * 100)));
+          } else if (currentPrice <= cheapestPrice) {
+            score = 100;
+          }
 
           let recommendation;
           if (score >= 80) recommendation = 'BUY';
@@ -837,6 +844,7 @@ const App = {
               body: JSON.stringify({
                 gameName: game.external || gameName,
                 currentPrice: currentPrice,
+                retailPrice: retailPrice,
                 historicalLow: cheapestPrice,
                 score: score,
                 url: url,
@@ -860,6 +868,7 @@ const App = {
             data: {
               title: game.external || gameName,
               currentPrice: currentPrice,
+              retailPrice: retailPrice,
               historicalLow: cheapestPrice,
               score: score,
               recommendation: recommendation,
@@ -994,8 +1003,8 @@ const App = {
             <div class="result-value score">${data.score}/100</div>
           </div>
           <div class="result-item">
-            <div class="result-label">Potential Savings</div>
-            <div class="result-value">$${(data.currentPrice - data.historicalLow).toFixed(2)}</div>
+            <div class="result-label">Savings (from Retail)</div>
+            <div class="result-value">$${(data.retailPrice - data.currentPrice).toFixed(2)}</div>
           </div>
         </div>
         

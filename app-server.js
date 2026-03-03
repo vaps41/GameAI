@@ -80,7 +80,7 @@ app.post('/api/create-portal-session', async (req, res) => {
 // Endpoint to analyze game with Gemini based on user subscription plan
 app.post('/api/analyze-game', async (req, res) => {
     try {
-        const { gameName, currentPrice, historicalLow, score, url, plan } = req.body;
+        const { gameName, currentPrice, retailPrice, historicalLow, score, url, plan } = req.body;
 
         // Determine which Gemini model to use based on plan
         let modelName = 'gemini-2.5-flash'; // free, bronze, silver default
@@ -97,6 +97,7 @@ app.post('/api/analyze-game', async (req, res) => {
         Analyze the following game deal:
         Game: ${gameName}
         Current Price: $${currentPrice}
+        Retail/Normal Price: $${retailPrice}
         Historical Low: $${historicalLow}
         Calculated Deal Score: ${score}/100
         Store URL: ${url}
