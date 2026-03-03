@@ -2,7 +2,6 @@
   "name": "gameprice-ai",
   "version": "1.0.0",
   "description": "A production-ready SaaS platform for analyzing video game prices and providing deal recommendations using AI-powered insights.",
-  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
