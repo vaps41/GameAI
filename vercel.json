@@ -33,11 +33,11 @@
     "rewrites": [
         {
             "source": "/api/(.*)",
-            "destination": "/api/index"
+            "destination": "/api/index.js"
         },
         {
             "source": "/js/config.js",
-            "destination": "/api/index"
+            "destination": "/api/index.js"
         }
     ]
 }
