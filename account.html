@@ -1,495 +1,407 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Account - GamePrice AI</title>
-    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
 
-    <!-- SEO Tags -->
-    <meta
-      name="description"
-      content="Manage your GamePrice AI account and subscription."
-    />
-    <link rel="canonical" href="https://gamepriceai.online/account.html" />
-    <meta property="og:title" content="Account - GamePrice AI" />
-    <meta
-      property="og:description"
-      content="Manage your GamePrice AI account and subscription."
-    />
-    <meta property="og:url" content="https://gamepriceai.online/account.html" />
-    <meta name="twitter:card" content="summary" />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Account - GamePrice AI</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
 
-    <!-- FontAwesome -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-      integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
+  <!-- SEO Tags -->
+  <meta name="description" content="Manage your GamePrice AI account and subscription." />
+  <link rel="canonical" href="https://gamepriceai.online/account.html" />
+  <meta property="og:title" content="Account - GamePrice AI" />
+  <meta property="og:description" content="Manage your GamePrice AI account and subscription." />
+  <meta property="og:url" content="https://gamepriceai.online/account.html" />
+  <meta name="twitter:card" content="summary" />
 
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
-      rel="stylesheet"
-    />
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-functions-compat.js"></script>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 
-    <!-- Stripe.js -->
-    <script src="https://js.stripe.com/v3/"></script>
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-functions-compat.js"></script>
 
-    <!-- Custom Styles -->
-    <link rel="stylesheet" href="css/style.css" />
-  </head>
+  <!-- Stripe.js -->
+  <script src="https://js.stripe.com/v3/"></script>
 
-  <body>
-    <!-- Navigation -->
-    <nav class="navbar">
-      <div class="navbar-content">
-        <a href="index.html" class="logo">
-          <div class="logo-icon">🎮</div>
-          <span>GamePrice AI</span>
-        </a>
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="css/style.css" />
+</head>
 
-        <div class="nav-links hidden md:flex">
-          <a href="dashboard.html" class="nav-link">Dashboard</a>
-          <a href="favorites.html" class="nav-link">Favorites</a>
-          <a href="history.html" class="nav-link">History</a>
-          <a href="free-games.html" class="nav-link">Free Games</a>
-          <a href="account.html" class="nav-link active">Account</a>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="navbar-content">
+      <a href="index.html" class="logo">
+        <div class="logo-icon">🎮</div>
+        <span>GamePrice AI</span>
+      </a>
+
+      <div class="nav-links hidden md:flex">
+        <a href="dashboard.html" class="nav-link">Dashboard</a>
+        <a href="favorites.html" class="nav-link">Favorites</a>
+        <a href="history.html" class="nav-link">History</a>
+        <a href="free-games.html" class="nav-link">Free Games</a>
+        <a href="account.html" class="nav-link active">Account</a>
+      </div>
+
+      <div class="nav-buttons" style="display: flex; align-items: center; gap: 0.75rem">
+        <div class="usage-display">
+          <span class="usage-badge">Loading...</span>
+        </div>
+        <a href="dashboard.html" class="btn btn-primary" style="margin-right: 10px">Back to Game Analysis</a>
+        <button id="logout-btn" class="btn btn-secondary">Logout</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Account Page -->
+  <main class="account-page">
+    <div class="container-narrow">
+      <!-- Page Header -->
+      <div class="dashboard-header">
+        <h1 class="dashboard-title">Account Settings</h1>
+        <p style="color: var(--text-secondary)">
+          Manage your profile and subscription
+        </p>
+      </div>
+
+      <!-- Profile Card -->
+      <div class="account-card">
+        <h3 class="account-section-title">👤 Profile Information</h3>
+
+        <div class="info-row">
+          <span class="info-label">Email Address</span>
+          <span class="info-value account-email">Loading...</span>
         </div>
 
-        <div
-          class="nav-buttons"
-          style="display: flex; align-items: center; gap: 0.75rem"
-        >
-          <div class="usage-display">
-            <span class="usage-badge">Loading...</span>
-          </div>
-          <a
-            href="dashboard.html"
-            class="btn btn-primary"
-            style="margin-right: 10px"
-            >Back to Game Analysis</a
-          >
-          <button id="logout-btn" class="btn btn-secondary">Logout</button>
+        <div class="info-row">
+          <span class="info-label">Account ID</span>
+          <span class="info-value" id="account-id"
+            style="font-size: 0.875rem; color: var(--text-muted)">Loading...</span>
         </div>
       </div>
-    </nav>
 
-    <!-- Account Page -->
-    <main class="account-page">
-      <div class="container-narrow">
-        <!-- Page Header -->
-        <div class="dashboard-header">
-          <h1 class="dashboard-title">Account Settings</h1>
-          <p style="color: var(--text-secondary)">
-            Manage your profile and subscription
-          </p>
+      <!-- Subscription Card -->
+      <div class="account-card">
+        <h3 class="account-section-title">💎 Current Subscription</h3>
+
+        <div class="info-row">
+          <span class="info-label">Current Plan</span>
+          <span class="plan-badge free">Loading...</span>
         </div>
 
-        <!-- Profile Card -->
-        <div class="account-card">
-          <h3 class="account-section-title">👤 Profile Information</h3>
-
-          <div class="info-row">
-            <span class="info-label">Email Address</span>
-            <span class="info-value account-email">Loading...</span>
-          </div>
-
-          <div class="info-row">
-            <span class="info-label">Account ID</span>
-            <span
-              class="info-value"
-              id="account-id"
-              style="font-size: 0.875rem; color: var(--text-muted)"
-              >Loading...</span
-            >
-          </div>
-        </div>
-
-        <!-- Subscription Card -->
-        <div class="account-card">
-          <h3 class="account-section-title">💎 Current Subscription</h3>
-
-          <div class="info-row">
-            <span class="info-label">Current Plan</span>
-            <span class="plan-badge free">Loading...</span>
-          </div>
-
-          <div class="info-row">
-            <span class="info-label">Plan Usage</span>
-            <div
-              style="
+        <div class="info-row">
+          <span class="info-label">Plan Usage</span>
+          <div style="
                 flex: 1;
                 margin-left: 2rem;
                 max-width: 300px;
                 text-align: right;
-              "
-            >
-              <div
-                style="
+              ">
+            <div style="
                   display: flex;
                   justify-content: space-between;
                   font-size: 0.875rem;
                   color: var(--text-secondary);
                   margin-bottom: 0.25rem;
-                "
-              >
-                <span id="usage-text-label">Analyses Used</span>
-                <span id="usage-text-value">0 / 5</span>
-              </div>
-              <div
-                style="
+                ">
+              <span id="usage-text-label">Analyses Used</span>
+              <span id="usage-text-value">0 / 5</span>
+            </div>
+            <div style="
                   width: 100%;
                   height: 6px;
                   background: var(--border-color);
                   border-radius: 4px;
                   overflow: hidden;
-                "
-              >
-                <div
-                  id="usage-progress-bar"
-                  style="
+                ">
+              <div id="usage-progress-bar" style="
                     width: 0%;
                     height: 100%;
                     background: var(--accent-primary);
-                  "
-                ></div>
-              </div>
-            </div>
-          </div>
-
-          <div
-            class="info-row"
-            id="subscription-status-row"
-            style="display: none"
-          >
-            <span class="info-label">Status</span>
-            <span class="info-value" style="color: var(--accent-success)"
-              >✓ Active</span
-            >
-          </div>
-
-          <div class="info-row" id="renewal-date-row" style="display: none">
-            <span class="info-label">Next Renewal</span>
-            <span class="info-value text-muted" id="renewal-date">--</span>
-          </div>
-
-          <div class="mt-4" id="subscription-actions">
-            <!-- Free user actions -->
-            <div id="free-user-actions">
-              <a href="#pricing" class="btn btn-primary"> Upgrade Your Plan </a>
-            </div>
-
-            <!-- Paid user actions -->
-            <div id="pro-user-actions" style="display: none">
-              <button id="manage-subscription-btn" class="btn btn-secondary">
-                Manage Subscription
-              </button>
+                  "></div>
             </div>
           </div>
         </div>
 
-        <!-- Plan Comparison -->
-        <div id="pricing" class="account-card">
-          <h3 class="account-section-title">📊 Plan Comparison</h3>
+        <div class="info-row" id="subscription-status-row" style="display: none">
+          <span class="info-label">Status</span>
+          <span class="info-value" style="color: var(--accent-success)">✓ Active</span>
+        </div>
 
-          <div style="overflow-x: auto">
-            <table class="comparison-table">
-              <thead>
-                <tr>
-                  <th>Feature</th>
-                  <th style="text-align: center">Free</th>
-                  <th style="text-align: center; color: var(--accent-success)">
-                    Bronze
-                  </th>
-                  <th style="text-align: center; color: var(--accent-purple)">
-                    Silver
-                  </th>
-                  <th style="text-align: center; color: #fbbf24">Gold</th>
-                  <th style="text-align: center; color: #38bdf8">Diamond</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Monthly Analyses</td>
-                  <td style="text-align: center">5</td>
-                  <td style="text-align: center; color: var(--accent-success)">
-                    50
-                  </td>
-                  <td style="text-align: center; color: var(--accent-purple)">
-                    200
-                  </td>
-                  <td style="text-align: center; color: #fbbf24">500</td>
-                  <td style="text-align: center; color: #38bdf8">Unlimited</td>
-                </tr>
-                <tr>
-                  <td>Price Analysis & History</td>
-                  <td style="text-align: center; color: var(--accent-success)">
-                    ✓
-                  </td>
-                  <td style="text-align: center; color: var(--accent-success)">
-                    ✓
-                  </td>
-                  <td style="text-align: center; color: var(--accent-success)">
-                    ✓
-                  </td>
-                  <td style="text-align: center; color: var(--accent-success)">
-                    ✓
-                  </td>
-                  <td style="text-align: center; color: var(--accent-success)">
-                    ✓
-                  </td>
-                </tr>
-                <tr>
-                  <td>Official Free Games Links</td>
-                  <td style="text-align: center; color: var(--accent-success)">
-                    ✓
-                  </td>
-                  <td style="text-align: center; color: var(--accent-success)">
-                    ✓
-                  </td>
-                  <td style="text-align: center; color: var(--accent-success)">
-                    ✓
-                  </td>
-                  <td style="text-align: center; color: var(--accent-success)">
-                    ✓
-                  </td>
-                  <td style="text-align: center; color: var(--accent-success)">
-                    ✓
-                  </td>
-                </tr>
-                <tr>
-                  <td>Save Favorites</td>
-                  <td style="text-align: center; color: var(--text-muted)">
-                    —
-                  </td>
-                  <td style="text-align: center; color: var(--accent-success)">
-                    ✓
-                  </td>
-                  <td style="text-align: center; color: var(--accent-success)">
-                    ✓
-                  </td>
-                  <td style="text-align: center; color: var(--accent-success)">
-                    ✓
-                  </td>
-                  <td style="text-align: center; color: var(--accent-success)">
-                    ✓
-                  </td>
-                </tr>
-                <tr>
-                  <td>Best Time to Buy</td>
-                  <td style="text-align: center; color: var(--text-muted)">
-                    —
-                  </td>
-                  <td style="text-align: center; color: var(--text-muted)">
-                    —
-                  </td>
-                  <td style="text-align: center; color: var(--accent-success)">
-                    ✓
-                  </td>
-                  <td style="text-align: center; color: var(--accent-success)">
-                    ✓
-                  </td>
-                  <td style="text-align: center; color: var(--accent-success)">
-                    ✓
-                  </td>
-                </tr>
-                <tr>
-                  <td>Priority Support</td>
-                  <td style="text-align: center; color: var(--text-muted)">
-                    —
-                  </td>
-                  <td style="text-align: center; color: var(--text-muted)">
-                    —
-                  </td>
-                  <td style="text-align: center; color: var(--text-muted)">
-                    —
-                  </td>
-                  <td style="text-align: center; color: var(--accent-success)">
-                    ✓
-                  </td>
-                  <td style="text-align: center; color: var(--accent-success)">
-                    ✓
-                  </td>
-                </tr>
-                <tr>
-                  <td>Deeper AI Analysis</td>
-                  <td style="text-align: center; color: var(--text-muted)">
-                    —
-                  </td>
-                  <td style="text-align: center; color: var(--text-muted)">
-                    —
-                  </td>
-                  <td style="text-align: center; color: var(--text-muted)">
-                    —
-                  </td>
-                  <td style="text-align: center; color: var(--accent-success)">
-                    ✓
-                  </td>
-                  <td style="text-align: center; color: var(--accent-success)">
-                    ✓
-                  </td>
-                </tr>
-                <tr>
-                  <td><strong>Price</strong></td>
-                  <td style="text-align: center"><strong>Free</strong></td>
-                  <td style="text-align: center; color: var(--accent-success)">
-                    <strong>$5.99/mo</strong>
-                  </td>
-                  <td style="text-align: center; color: var(--accent-purple)">
-                    <strong>$9.99/mo</strong>
-                  </td>
-                  <td style="text-align: center; color: #fbbf24">
-                    <strong>$29.99/mo</strong>
-                  </td>
-                  <td style="text-align: center; color: #38bdf8">
-                    <strong>$49.99/mo</strong>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+        <div class="info-row" id="renewal-date-row" style="display: none">
+          <span class="info-label">Next Renewal</span>
+          <span class="info-value text-muted" id="renewal-date">--</span>
+        </div>
+
+        <div class="mt-4" id="subscription-actions">
+          <!-- Free user actions -->
+          <div id="free-user-actions">
+            <a href="#pricing" class="btn btn-primary"> Upgrade Your Plan </a>
           </div>
 
-          <!-- Upgrade Buttons -->
-          <div
-            style="
-              display: grid;
-              grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-              gap: 1rem;
-              margin-top: 2rem;
-            "
-          >
-            <button
-              onclick="App.handlePlanUpgrade('bronze')"
-              class="btn btn-success"
-              style="font-size: 0.85rem"
-            >
-              Upgrade Bronze
-            </button>
-            <button
-              onclick="App.handlePlanUpgrade('silver')"
-              class="btn btn-purple"
-              style="font-size: 0.85rem"
-            >
-              Upgrade Silver
-            </button>
-            <button
-              onclick="App.handlePlanUpgrade('gold')"
-              class="btn btn-primary"
-              style="
-                background: linear-gradient(135deg, #fbbf24, #f59e0b);
-                border: none;
-                font-size: 0.85rem;
-              "
-            >
-              Go Gold
-            </button>
-            <button
-              onclick="App.handlePlanUpgrade('diamond')"
-              class="btn btn-primary"
-              style="
-                background: linear-gradient(135deg, #38bdf8, #3b82f6);
-                border: none;
-                font-size: 0.85rem;
-              "
-            >
-              Go Diamond
+          <!-- Paid user actions -->
+          <div id="pro-user-actions" style="display: none">
+            <button id="manage-subscription-btn" class="btn btn-secondary">
+              Manage Subscription
             </button>
           </div>
         </div>
+      </div>
 
-        <!-- Payment History -->
-        <div class="account-card" id="payment-history-card">
-          <h3 class="account-section-title">💳 Payment History</h3>
-          <div style="overflow-x: auto">
-            <table
-              class="comparison-table"
-              style="width: 100%; text-align: left; border-collapse: collapse"
-            >
-              <thead>
-                <tr style="border-bottom: 1px solid var(--border-color)">
-                  <th style="padding: 0.75rem 0">Date</th>
-                  <th style="padding: 0.75rem 0">Plan</th>
-                  <th style="padding: 0.75rem 0">Amount</th>
-                  <th style="padding: 0.75rem 0">Status</th>
-                  <th style="padding: 0.75rem 0; text-align: right">Receipt</th>
-                </tr>
-              </thead>
-              <tbody id="payment-history-body">
-                <tr>
-                  <td
-                    colspan="5"
-                    style="
+      <!-- Plan Comparison -->
+      <div id="pricing" class="account-card">
+        <h3 class="account-section-title">📊 Plan Comparison</h3>
+        <div
+          style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+          <h3 class="account-section-title" style="margin-bottom: 0; border: none; padding: 0;">📊 Plan Comparison</h3>
+
+          <!-- Toggle Switch Mensal/Anual -->
+          <div
+            style="display: flex; align-items: center; gap: 0.75rem; background: var(--bg-tertiary); padding: 0.5rem 1rem; border-radius: 50px; border: 1px solid var(--border-color);">
+            <span id="label-monthly"
+              style="font-weight: 600; color: var(--text-primary); font-size: 0.875rem;">Monthly</span>
+
+            <label style="position: relative; display: inline-block; width: 40px; height: 22px; margin: 0;">
+              <input type="checkbox" id="billing-toggle" onchange="toggleBilling()"
+                style="opacity: 0; width: 0; height: 0;">
+              <span
+                style="position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: var(--bg-card); transition: .3s; border-radius: 34px; border: 1px solid var(--border-color);">
+                <span id="toggle-circle"
+                  style="position: absolute; content: ''; height: 14px; width: 14px; left: 3px; bottom: 3px; background-color: var(--accent-primary); transition: .3s; border-radius: 50%;"></span>
+              </span>
+            </label>
+
+            <span id="label-annual" style="color: var(--text-secondary); font-size: 0.875rem;">Annual <span
+                style="color: var(--accent-success); font-weight: 600;">(Save 20%)</span></span>
+          </div>
+        </div>
+        <div style="overflow-x: auto">
+          <table class="comparison-table">
+            <thead>
+              <tr>
+                <th>Feature</th>
+                <th style="text-align: center;">Free</th>
+                <th style="text-align: center; color: var(--accent-success);">Bronze</th>
+                <th style="text-align: center; color: var(--accent-purple);">Silver</th>
+                <th style="text-align: center; color: #fbbf24;">Gold</th>
+                <th style="text-align: center; color: #38bdf8;">Diamond</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Monthly Analyses</td>
+                <td style="text-align: center">5</td>
+                <td style="text-align: center; color: var(--accent-success)">
+                  50
+                </td>
+                <td style="text-align: center; color: var(--accent-purple)">
+                  200
+                </td>
+                <td style="text-align: center; color: #fbbf24">500</td>
+                <td style="text-align: center; color: #38bdf8">Unlimited</td>
+              </tr>
+              <tr>
+                <td>Official Free Games Links</td>
+                <td style="text-align: center; color: var(--accent-success)">
+                  ✓
+                </td>
+                <td style="text-align: center; color: var(--accent-success)">
+                  ✓
+                </td>
+                <td style="text-align: center; color: var(--accent-success)">
+                  ✓
+                </td>
+                <td style="text-align: center; color: var(--accent-success)">
+                  ✓
+                </td>
+                <td style="text-align: center; color: var(--accent-success)">
+                  ✓
+                </td>
+              </tr>
+              <tr>
+                <td>Save Favorites</td>
+                <td style="text-align: center; color: var(--text-muted)">
+                  —
+                </td>
+                <td style="text-align: center; color: var(--accent-success)">
+                  ✓
+                </td>
+                <td style="text-align: center; color: var(--accent-success)">
+                  ✓
+                </td>
+                <td style="text-align: center; color: var(--accent-success)">
+                  ✓
+                </td>
+                <td style="text-align: center; color: var(--accent-success)">
+                  ✓
+                </td>
+              </tr>
+              <tr>
+                <td>Best Time to Buy</td>
+                <td style="text-align: center; color: var(--text-muted)">
+                  —
+                </td>
+                <td style="text-align: center; color: var(--text-muted)">
+                  —
+                </td>
+                <td style="text-align: center; color: var(--accent-success)">
+                  ✓
+                </td>
+                <td style="text-align: center; color: var(--accent-success)">
+                  ✓
+                </td>
+                <td style="text-align: center; color: var(--accent-success)">
+                  ✓
+                </td>
+              </tr>
+              <tr>
+                <td>Priority Support</td>
+                <td style="text-align: center; color: var(--text-muted)">
+                  —
+                </td>
+                <td style="text-align: center; color: var(--text-muted)">
+                  —
+                </td>
+                <td style="text-align: center; color: var(--text-muted)">
+                  —
+                </td>
+                <td style="text-align: center; color: var(--accent-success)">
+                  ✓
+                </td>
+                <td style="text-align: center; color: var(--accent-success)">
+                  ✓
+                </td>
+              </tr>
+              <tr>
+                <td>Deeper AI Analysis</td>
+                <td style="text-align: center; color: var(--text-muted)">
+                  —
+                </td>
+                <td style="text-align: center; color: var(--text-muted)">
+                  —
+                </td>
+                <td style="text-align: center; color: var(--text-muted)">
+                  —
+                </td>
+                <td style="text-align: center; color: var(--accent-success)">
+                  ✓
+                </td>
+                <td style="text-align: center; color: var(--accent-success)">
+                  ✓
+                </td>
+              </tr>
+              <tr>
+                <td><strong>Price</strong></td>
+                <td style="text-align: center;"><strong>Free</strong></td>
+                <td style="text-align: center; color: var(--accent-success);" id="price-bronze">
+                  <strong>$5.99/mo</strong>
+                </td>
+                <td style="text-align: center; color: var(--accent-purple);" id="price-silver"><strong>$9.99/mo</strong>
+                </td>
+                <td style="text-align: center; color: #fbbf24;" id="price-gold"><strong>$29.99/mo</strong></td>
+                <td style="text-align: center; color: #38bdf8;" id="price-diamond"><strong>$49.99/mo</strong></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Upgrade Buttons -->
+        <!-- Upgrade Buttons -->
+        <div
+          style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin-top: 2rem;">
+          <button onclick="App.handlePlanUpgrade('bronze')" class="btn btn-success" style="font-size: 0.85rem;">Upgrade
+            Bronze</button>
+          <button onclick="App.handlePlanUpgrade('silver')" class="btn btn-purple" style="font-size: 0.85rem;">Upgrade
+            Silver</button>
+          <button onclick="App.handlePlanUpgrade('gold')" class="btn btn-primary"
+            style="background: linear-gradient(135deg, #fbbf24, #f59e0b); border: none; font-size: 0.85rem;">Go
+            Gold</button>
+          <button onclick="App.handlePlanUpgrade('diamond')" class="btn btn-primary"
+            style="background: linear-gradient(135deg, #38bdf8, #3b82f6); border: none; font-size: 0.85rem;">Go
+            Diamond</button>
+        </div>
+      </div>
+
+      <!-- Payment History -->
+      <div class="account-card" id="payment-history-card">
+        <h3 class="account-section-title">💳 Payment History</h3>
+        <div style="overflow-x: auto">
+          <table class="comparison-table" style="width: 100%; text-align: left; border-collapse: collapse">
+            <thead>
+              <tr style="border-bottom: 1px solid var(--border-color)">
+                <th style="padding: 0.75rem 0">Date</th>
+                <th style="padding: 0.75rem 0">Plan</th>
+                <th style="padding: 0.75rem 0">Amount</th>
+                <th style="padding: 0.75rem 0">Status</th>
+                <th style="padding: 0.75rem 0; text-align: right">Receipt</th>
+              </tr>
+            </thead>
+            <tbody id="payment-history-body">
+              <tr>
+                <td colspan="5" style="
                       text-align: center;
                       padding: 1.5rem 0;
                       color: var(--text-muted);
-                    "
-                  >
-                    No payment history found.
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+                    ">
+                  No payment history found.
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
+      </div>
 
-        <!-- Data & Privacy -->
-        <div class="account-card">
-          <h3 class="account-section-title">🔒 Data & Privacy</h3>
-          <div
-            style="
+      <!-- Data & Privacy -->
+      <div class="account-card">
+        <h3 class="account-section-title">🔒 Data & Privacy</h3>
+        <div style="
               display: flex;
               align-items: center;
               justify-content: space-between;
               flex-wrap: wrap;
               gap: 1rem;
-            "
-          >
-            <div>
-              <h4 style="margin-bottom: 0.25rem">Export Your Data</h4>
-              <p
-                style="
+            ">
+          <div>
+            <h4 style="margin-bottom: 0.25rem">Export Your Data</h4>
+            <p style="
                   color: var(--text-secondary);
                   margin: 0;
                   font-size: 0.875rem;
-                "
-              >
-                Download a copy of your personal data in JSON format (GDPR Art.
-                20)
-              </p>
-            </div>
-            <button id="export-data-btn" class="btn btn-secondary">
-              📥 Download My Data
-            </button>
+                ">
+              Download a copy of your personal data in JSON format (GDPR Art.
+              20)
+            </p>
           </div>
+          <button id="export-data-btn" class="btn btn-secondary">
+            📥 Download My Data
+          </button>
         </div>
+      </div>
 
-        <!-- Danger Zone -->
-        <div
-          class="account-card"
-          style="
+      <!-- Danger Zone -->
+      <div class="account-card" style="
             border-color: rgba(239, 68, 68, 0.4);
             background: rgba(239, 68, 68, 0.05);
-          "
-        >
-          <h3 class="account-section-title" style="color: var(--accent-danger)">
-            ⚠️ Danger Zone
-          </h3>
+          ">
+        <h3 class="account-section-title" style="color: var(--accent-danger)">
+          ⚠️ Danger Zone
+        </h3>
 
-          <div
-            style="
+        <div style="
               display: flex;
               align-items: center;
               justify-content: space-between;
@@ -498,70 +410,53 @@
               margin-bottom: 1.5rem;
               border-bottom: 1px solid rgba(239, 68, 68, 0.2);
               padding-bottom: 1.5rem;
-            "
-          >
-            <div>
-              <h4 style="margin-bottom: 0.25rem">Sign Out</h4>
-              <p
-                style="
+            ">
+          <div>
+            <h4 style="margin-bottom: 0.25rem">Sign Out</h4>
+            <p style="
                   color: var(--text-secondary);
                   margin: 0;
                   font-size: 0.875rem;
-                "
-              >
-                Sign out of your account on this device
-              </p>
-            </div>
-            <button
-              id="logout-btn-danger"
-              class="btn btn-secondary"
-              style="border-color: var(--text-muted)"
-            >
-              Sign Out
-            </button>
+                ">
+              Sign out of your account on this device
+            </p>
           </div>
+          <button id="logout-btn-danger" class="btn btn-secondary" style="border-color: var(--text-muted)">
+            Sign Out
+          </button>
+        </div>
 
-          <div
-            style="
+        <div style="
               display: flex;
               align-items: center;
               justify-content: space-between;
               flex-wrap: wrap;
               gap: 1rem;
-            "
-          >
-            <div>
-              <h4 style="margin-bottom: 0.25rem; color: var(--accent-danger)">
-                Delete Account
-              </h4>
-              <p
-                style="
+            ">
+          <div>
+            <h4 style="margin-bottom: 0.25rem; color: var(--accent-danger)">
+              Delete Account
+            </h4>
+            <p style="
                   color: var(--text-secondary);
                   margin: 0;
                   font-size: 0.875rem;
-                "
-              >
-                This will permanently delete all your data, history, and
-                preferences.
-              </p>
-            </div>
-            <button
-              id="delete-account-btn"
-              class="btn btn-primary"
-              style="
+                ">
+              This will permanently delete all your data, history, and
+              preferences.
+            </p>
+          </div>
+          <button id="delete-account-btn" class="btn btn-primary" style="
                 background: var(--accent-danger);
                 border-color: var(--accent-danger);
-              "
-            >
-              Delete Account
-            </button>
-          </div>
+              ">
+            Delete Account
+          </button>
         </div>
+      </div>
 
-        <!-- Delete Account Modal -->
-        <div
-          id="delete-modal"
-          style="
+      <!-- Delete Account Modal -->
+      <div id="delete-modal" style="
             display: none;
             position: fixed;
             top: 0;
@@ -572,158 +467,102 @@
             z-index: 10000;
             align-items: center;
             justify-content: center;
-          "
-        >
-          <div
-            style="
+          ">
+        <div style="
               background: var(--bg-card);
               padding: 2.5rem;
               border-radius: var(--radius-lg);
               max-width: 400px;
               width: 90%;
               border: 1px solid var(--accent-danger);
-            "
-          >
-            <h3 style="color: var(--accent-danger); margin-bottom: 1rem">
-              Delete your account?
-            </h3>
-            <p
-              style="
+            ">
+          <h3 style="color: var(--accent-danger); margin-bottom: 1rem">
+            Delete your account?
+          </h3>
+          <p style="
                 color: var(--text-secondary);
                 margin-bottom: 1.5rem;
                 font-size: 0.95rem;
-              "
-            >
-              This action cannot be undone. All your saved games, analysis
-              history, and active subscriptions will be lost permanently.
-            </p>
-            <p
-              style="
+              ">
+            This action cannot be undone. All your saved games, analysis
+            history, and active subscriptions will be lost permanently.
+          </p>
+          <p style="
                 color: var(--text-primary);
                 margin-bottom: 0.5rem;
                 font-weight: 600;
                 font-size: 0.875rem;
-              "
-            >
-              Please type "DELETE" to confirm:
-            </p>
-            <input
-              type="text"
-              id="delete-confirm-input"
-              class="form-input"
-              style="margin-bottom: 1.5rem; text-transform: uppercase"
-              placeholder="DELETE"
-            />
-            <div style="display: flex; gap: 1rem">
-              <button
-                id="cancel-delete-btn"
-                class="btn btn-secondary"
-                style="flex: 1"
-              >
-                Cancel
-              </button>
-              <button
-                id="confirm-delete-btn"
-                class="btn btn-primary"
-                style="flex: 1; background: var(--accent-danger); border: none"
-                disabled
-              >
-                Delete
-              </button>
-            </div>
+              ">
+            Please type "DELETE" to confirm:
+          </p>
+          <input type="text" id="delete-confirm-input" class="form-input"
+            style="margin-bottom: 1.5rem; text-transform: uppercase" placeholder="DELETE" />
+          <div style="display: flex; gap: 1rem">
+            <button id="cancel-delete-btn" class="btn btn-secondary" style="flex: 1">
+              Cancel
+            </button>
+            <button id="confirm-delete-btn" class="btn btn-primary"
+              style="flex: 1; background: var(--accent-danger); border: none" disabled>
+              Delete
+            </button>
           </div>
         </div>
-
-        <!-- Analyze More CTA -->
-        <div class="account-card" style="margin-top: 2rem; text-align: center">
-          <p style="color: var(--text-secondary); margin-bottom: 1rem">
-            Want to analyze more games?
-          </p>
-          <a href="dashboard.html" class="btn btn-primary"> Analyze a Game </a>
-        </div>
       </div>
-    </main>
 
-    <!-- Footer -->
-    <footer
-      class="footer"
-      style="
+      <!-- Analyze More CTA -->
+      <div class="account-card" style="margin-top: 2rem; text-align: center">
+        <p style="color: var(--text-secondary); margin-bottom: 1rem">
+          Want to analyze more games?
+        </p>
+        <a href="dashboard.html" class="btn btn-primary"> Analyze a Game </a>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer" style="
         padding: 3rem 0;
         border-top: 1px solid var(--border-color);
         margin-top: auto;
-      "
-    >
-      <div class="container">
-        <div
-          style="
+      ">
+    <div class="container">
+      <div style="
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 1.5rem;
-          "
-        >
-          <div
-            style="
+          ">
+        <div style="
               display: flex;
               justify-content: center;
               gap: 1rem;
               flex-wrap: wrap;
-            "
-          >
-            <i
-              class="fa-brands fa-cc-visa"
-              style="font-size: 2rem; color: #fff"
-            ></i>
-            <i
-              class="fa-brands fa-cc-mastercard"
-              style="font-size: 2rem; color: #fff"
-            ></i>
-            <i
-              class="fa-brands fa-cc-paypal"
-              style="font-size: 2rem; color: #fff"
-            ></i>
-            <i
-              class="fa-brands fa-cc-stripe"
-              style="font-size: 2rem; color: #fff"
-            ></i>
-          </div>
-          <p
-            class="footer-text"
-            style="
-              display: flex;
-              justify-content: center;
-              gap: 1rem;
-              flex-wrap: wrap;
-            "
-          >
-            <span>© 2026 GamePrice AI. All rights reserved.</span>
-            <span style="color: var(--border-color)">|</span>
-            <a
-              href="/privacy.html"
-              style="color: inherit; text-decoration: underline"
-              >Privacy Policy</a
-            >
-            <span style="color: var(--border-color)">|</span>
-            <a
-              href="/terms.html"
-              style="color: inherit; text-decoration: underline"
-              >Terms of Use</a
-            >
-            <span style="color: var(--border-color)">|</span>
-            <a
-              href="mailto:contact@gamepriceai.online"
-              style="color: inherit; text-decoration: underline"
-              >Contact</a
-            >
-          </p>
+            ">
+          <i class="fa-brands fa-cc-visa" style="font-size: 2rem; color: #fff"></i>
+          <i class="fa-brands fa-cc-mastercard" style="font-size: 2rem; color: #fff"></i>
+          <i class="fa-brands fa-cc-paypal" style="font-size: 2rem; color: #fff"></i>
+          <i class="fa-brands fa-cc-stripe" style="font-size: 2rem; color: #fff"></i>
         </div>
+        <p class="footer-text" style="
+              display: flex;
+              justify-content: center;
+              gap: 1rem;
+              flex-wrap: wrap;
+            ">
+          <span>© 2026 GamePrice AI. All rights reserved.</span>
+          <span style="color: var(--border-color)">|</span>
+          <a href="/privacy.html" style="color: inherit; text-decoration: underline">Privacy Policy</a>
+          <span style="color: var(--border-color)">|</span>
+          <a href="/terms.html" style="color: inherit; text-decoration: underline">Terms of Use</a>
+          <span style="color: var(--border-color)">|</span>
+          <a href="mailto:contact@gamepriceai.online" style="color: inherit; text-decoration: underline">Contact</a>
+        </p>
       </div>
-    </footer>
+    </div>
+  </footer>
 
-    <!-- GDPR Cookie Banner -->
-    <div
-      id="cookie-banner"
-      style="
+  <!-- GDPR Cookie Banner -->
+  <div id="cookie-banner" style="
         position: fixed;
         bottom: 0;
         left: 0;
@@ -744,27 +583,18 @@
           transform 0.4s ease;
         opacity: 1;
         transform: translateY(0);
-      "
-    >
-      <p
-        style="
+      ">
+    <p style="
           margin: 0;
           font-size: 0.95rem;
           text-align: center;
           max-width: 600px;
-        "
-      >
-        We use cookies to improve your experience. By continuing, you agree to
-        our
-        <a
-          href="/privacy.html"
-          style="color: #60a5fa; text-decoration: underline; font-weight: 500"
-          >Privacy Policy</a
-        >.
-      </p>
-      <button
-        id="accept-cookies"
-        style="
+        ">
+      We use cookies to improve your experience. By continuing, you agree to
+      our
+      <a href="/privacy.html" style="color: #60a5fa; text-decoration: underline; font-weight: 500">Privacy Policy</a>.
+    </p>
+    <button id="accept-cookies" style="
           background: var(
             --gradient-primary,
             linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%)
@@ -779,212 +609,241 @@
             transform 0.2s,
             box-shadow 0.2s;
           box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
-        "
-      >
-        Accept All
-      </button>
-    </div>
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        const banner = document.getElementById("cookie-banner");
-        if (!localStorage.getItem("cookieConsent")) {
-          banner.style.display = "flex";
-        }
-        document
-          .getElementById("accept-cookies")
-          .addEventListener("click", function () {
-            localStorage.setItem("cookieConsent", "true");
-            banner.style.opacity = "0";
-            banner.style.transform = "translateY(100%)";
-            setTimeout(() => (banner.style.display = "none"), 400);
-          });
+        ">
+      Accept All
+    </button>
+  </div>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const banner = document.getElementById("cookie-banner");
+      if (!localStorage.getItem("cookieConsent")) {
+        banner.style.display = "flex";
+      }
+      document
+        .getElementById("accept-cookies")
+        .addEventListener("click", function () {
+          localStorage.setItem("cookieConsent", "true");
+          banner.style.opacity = "0";
+          banner.style.transform = "translateY(100%)";
+          setTimeout(() => (banner.style.display = "none"), 400);
+        });
+    });
+  </script>
+
+  <!-- Application Scripts -->
+  <script src="js/config.js"></script>
+  <script src="js/firebase.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/stripe.js"></script>
+  <script src="js/app.js"></script>
+
+  <script>
+    // Lógica do botão Anual/Mensal
+    function toggleBilling() {
+      const isAnnual = document.getElementById('billing-toggle').checked;
+      const circle = document.getElementById('toggle-circle');
+
+      // Animação do botão
+      if (isAnnual) {
+        circle.style.transform = 'translateX(18px)';
+        circle.style.backgroundColor = 'var(--accent-success)';
+      } else {
+        circle.style.transform = 'translateX(0)';
+        circle.style.backgroundColor = 'var(--accent-primary)';
+      }
+
+      // Atualiza as labels de texto
+      document.getElementById('label-monthly').style.color = isAnnual ? 'var(--text-secondary)' : 'var(--text-primary)';
+      document.getElementById('label-monthly').style.fontWeight = isAnnual ? 'normal' : '600';
+      document.getElementById('label-annual').style.color = isAnnual ? 'var(--text-primary)' : 'var(--text-secondary)';
+
+      // Atualiza os preços dinamicamente na tabela
+      document.getElementById('price-bronze').innerHTML = isAnnual ? '<strong>$4.79/mo</strong><br><small style="color:var(--text-muted)">Billed yearly</small>' : '<strong>$5.99/mo</strong>';
+      document.getElementById('price-silver').innerHTML = isAnnual ? '<strong>$7.99/mo</strong><br><small style="color:var(--text-muted)">Billed yearly</small>' : '<strong>$9.99/mo</strong>';
+      document.getElementById('price-gold').innerHTML = isAnnual ? '<strong>$23.99/mo</strong><br><small style="color:var(--text-muted)">Billed yearly</small>' : '<strong>$29.99/mo</strong>';
+      document.getElementById('price-diamond').innerHTML = isAnnual ? '<strong>$39.99/mo</strong><br><small style="color:var(--text-muted)">Billed yearly</small>' : '<strong>$49.99/mo</strong>';
+    }
+
+    // Handle plan upgrade (Agora lê se o toggle está ativo ou não)
+    App.handlePlanUpgrade = async function (planType) {
+      if (!window.StripeIntegration) {
+        this.showError('Payment system not available');
+        return;
+      }
+
+      // Verifica o estado do botão
+      const isAnnual = document.getElementById('billing-toggle')?.checked || false;
+
+      // Passa o isAnnual para o ficheiro Stripe configurado
+      const result = await window.StripeIntegration.createCheckoutSession(planType, isAnnual);
+
+      if (!result.success && !result.mock) {
+        this.showError(result.error || 'Failed to start checkout');
+      }
+    };
+
+    // Additional account page initialization
+    document.addEventListener("DOMContentLoaded", async () => {
+      // Wait for auth to be ready
+      await new Promise((resolve) => {
+        const check = () => {
+          if (window.Auth && window.Auth.currentUser !== undefined) {
+            resolve();
+          } else {
+            setTimeout(check, 100);
+          }
+        };
+        check();
       });
-    </script>
 
-    <!-- Application Scripts -->
-    <script src="js/config.js"></script>
-    <script src="js/firebase.js"></script>
-    <script src="js/auth.js"></script>
-    <script src="js/stripe.js"></script>
-    <script src="js/app.js"></script>
-
-    <script>
-      // Handle plan upgrade
-      App.handlePlanUpgrade = async function (planType) {
-        if (!window.StripeIntegration) {
-          this.showError("Payment system not available");
-          return;
+      const user = window.Auth.getCurrentUser();
+      if (user) {
+        // Update account ID
+        const accountIdEl = document.getElementById("account-id");
+        if (accountIdEl) {
+          accountIdEl.textContent = user.uid.substring(0, 12) + "...";
         }
 
-        const result =
-          await window.StripeIntegration.createCheckoutSession(planType);
+        // Load subscription data
+        if (window.subscriptionManager) {
+          const sub = await window.subscriptionManager.getSubscription(
+            user.uid,
+          );
 
-        if (!result.success && !result.mock) {
-          this.showError(result.error || "Failed to start checkout");
+          // Update plan badge
+          const planBadges = document.querySelectorAll(".plan-badge");
+          planBadges.forEach((el) => {
+            el.className = `plan-badge ${sub.plan}`;
+            el.textContent =
+              sub.plan.charAt(0).toUpperCase() + sub.plan.slice(1);
+          });
+
+          // Show/hide subscription sections
+          const freeActions = document.getElementById("free-user-actions");
+          const proActions = document.getElementById("pro-user-actions");
+          const subscriptionStatusRow = document.getElementById(
+            "subscription-status-row",
+          );
+
+          if (sub.plan !== "free") {
+            if (freeActions) freeActions.style.display = "none";
+            if (proActions) proActions.style.display = "block";
+            if (subscriptionStatusRow)
+              subscriptionStatusRow.style.display = "flex";
+          } else {
+            if (freeActions) freeActions.style.display = "block";
+            if (proActions) proActions.style.display = "none";
+            if (subscriptionStatusRow)
+              subscriptionStatusRow.style.display = "none";
+          }
         }
-      };
+      }
 
-      // Additional account page initialization
-      document.addEventListener("DOMContentLoaded", async () => {
-        // Wait for auth to be ready
-        await new Promise((resolve) => {
-          const check = () => {
-            if (window.Auth && window.Auth.currentUser !== undefined) {
-              resolve();
-            } else {
-              setTimeout(check, 100);
-            }
-          };
-          check();
+      // Danger zone logout button
+      const dangerLogoutBtn = document.getElementById("logout-btn-danger");
+      if (dangerLogoutBtn) {
+        dangerLogoutBtn.addEventListener("click", async () => {
+          if (window.App) {
+            await window.App.handleLogout();
+          }
+        });
+      }
+
+      // Delete account modal logic
+      const deleteModal = document.getElementById("delete-modal");
+      const deleteBtn = document.getElementById("delete-account-btn");
+      const cancelDelete = document.getElementById("cancel-delete-btn");
+      const confirmDelete = document.getElementById("confirm-delete-btn");
+      const deleteInput = document.getElementById("delete-confirm-input");
+
+      if (deleteBtn && deleteModal) {
+        deleteBtn.addEventListener("click", () => {
+          deleteModal.style.display = "flex";
+          deleteInput.value = "";
+          confirmDelete.disabled = true;
         });
 
-        const user = window.Auth.getCurrentUser();
-        if (user) {
-          // Update account ID
-          const accountIdEl = document.getElementById("account-id");
-          if (accountIdEl) {
-            accountIdEl.textContent = user.uid.substring(0, 12) + "...";
-          }
+        cancelDelete.addEventListener("click", () => {
+          deleteModal.style.display = "none";
+        });
 
-          // Load subscription data
-          if (window.subscriptionManager) {
-            const sub = await window.subscriptionManager.getSubscription(
-              user.uid,
-            );
-
-            // Update plan badge
-            const planBadges = document.querySelectorAll(".plan-badge");
-            planBadges.forEach((el) => {
-              el.className = `plan-badge ${sub.plan}`;
-              el.textContent =
-                sub.plan.charAt(0).toUpperCase() + sub.plan.slice(1);
-            });
-
-            // Show/hide subscription sections
-            const freeActions = document.getElementById("free-user-actions");
-            const proActions = document.getElementById("pro-user-actions");
-            const subscriptionStatusRow = document.getElementById(
-              "subscription-status-row",
-            );
-
-            if (sub.plan !== "free") {
-              if (freeActions) freeActions.style.display = "none";
-              if (proActions) proActions.style.display = "block";
-              if (subscriptionStatusRow)
-                subscriptionStatusRow.style.display = "flex";
-            } else {
-              if (freeActions) freeActions.style.display = "block";
-              if (proActions) proActions.style.display = "none";
-              if (subscriptionStatusRow)
-                subscriptionStatusRow.style.display = "none";
-            }
-          }
-        }
-
-        // Danger zone logout button
-        const dangerLogoutBtn = document.getElementById("logout-btn-danger");
-        if (dangerLogoutBtn) {
-          dangerLogoutBtn.addEventListener("click", async () => {
-            if (window.App) {
-              await window.App.handleLogout();
-            }
-          });
-        }
-
-        // Delete account modal logic
-        const deleteModal = document.getElementById("delete-modal");
-        const deleteBtn = document.getElementById("delete-account-btn");
-        const cancelDelete = document.getElementById("cancel-delete-btn");
-        const confirmDelete = document.getElementById("confirm-delete-btn");
-        const deleteInput = document.getElementById("delete-confirm-input");
-
-        if (deleteBtn && deleteModal) {
-          deleteBtn.addEventListener("click", () => {
-            deleteModal.style.display = "flex";
-            deleteInput.value = "";
+        deleteInput.addEventListener("input", (e) => {
+          if (e.target.value === "DELETE") {
+            confirmDelete.disabled = false;
+          } else {
             confirmDelete.disabled = true;
-          });
+          }
+        });
 
-          cancelDelete.addEventListener("click", () => {
-            deleteModal.style.display = "none";
-          });
+        confirmDelete.addEventListener("click", async () => {
+          // Add API Call for deletion here
+          confirmDelete.innerText = "Deleting...";
+          setTimeout(() => {
+            alert("Account deleted.");
+            if (window.App) window.App.handleLogout();
+          }, 1500);
+        });
+      }
 
-          deleteInput.addEventListener("input", (e) => {
-            if (e.target.value === "DELETE") {
-              confirmDelete.disabled = false;
-            } else {
-              confirmDelete.disabled = true;
-            }
-          });
+      // Export data (GDPR)
+      const exportBtn = document.getElementById("export-data-btn");
+      if (exportBtn) {
+        exportBtn.addEventListener("click", async () => {
+          exportBtn.innerText = "Generating JSON...";
+          exportBtn.disabled = true;
 
-          confirmDelete.addEventListener("click", async () => {
-            // Add API Call for deletion here
-            confirmDelete.innerText = "Deleting...";
-            setTimeout(() => {
-              alert("Account deleted.");
-              if (window.App) window.App.handleLogout();
-            }, 1500);
-          });
-        }
+          setTimeout(() => {
+            const dataToExport = {
+              user: user ? user.email : "Unknown",
+              createdAt: new Date().toISOString(),
+              history: [],
+              favorites: [],
+            };
+            const blob = new Blob([JSON.stringify(dataToExport, null, 2)], {
+              type: "application/json",
+            });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = "gameprice-data-export.json";
+            a.click();
+            URL.revokeObjectURL(url);
 
-        // Export data (GDPR)
-        const exportBtn = document.getElementById("export-data-btn");
-        if (exportBtn) {
-          exportBtn.addEventListener("click", async () => {
-            exportBtn.innerText = "Generating JSON...";
-            exportBtn.disabled = true;
+            exportBtn.innerText = "📥 Download My Data";
+            exportBtn.disabled = false;
+          }, 1000);
+        });
+      }
 
-            setTimeout(() => {
-              const dataToExport = {
-                user: user ? user.email : "Unknown",
-                createdAt: new Date().toISOString(),
-                history: [],
-                favorites: [],
-              };
-              const blob = new Blob([JSON.stringify(dataToExport, null, 2)], {
-                type: "application/json",
-              });
-              const url = URL.createObjectURL(blob);
-              const a = document.createElement("a");
-              a.href = url;
-              a.download = "gameprice-data-export.json";
-              a.click();
-              URL.revokeObjectURL(url);
+      // Populate plan usage if available
+      if (user && window.userDoc) {
+        const userData = await window.userDoc.get(user.uid);
+        const plan = userData?.plan || "free";
+        const used = userData?.monthlyUsage?.count || 0;
+        const limits = {
+          free: 5,
+          bronze: 50,
+          silver: 200,
+          gold: 500,
+          diamond: 999999,
+        };
+        const limit = limits[plan] || 5;
 
-              exportBtn.innerText = "📥 Download My Data";
-              exportBtn.disabled = false;
-            }, 1000);
-          });
-        }
+        const usageValEl = document.getElementById("usage-text-value");
+        const usageProgress = document.getElementById("usage-progress-bar");
 
-        // Populate plan usage if available
-        if (user && window.userDoc) {
-          const userData = await window.userDoc.get(user.uid);
-          const plan = userData?.plan || "free";
-          const used = userData?.monthlyUsage?.count || 0;
-          const limits = {
-            free: 5,
-            bronze: 50,
-            silver: 200,
-            gold: 500,
-            diamond: 999999,
-          };
-          const limit = limits[plan] || 5;
-
-          const usageValEl = document.getElementById("usage-text-value");
-          const usageProgress = document.getElementById("usage-progress-bar");
-
-          if (usageValEl && usageProgress) {
-            if (plan === "diamond") {
-              usageValEl.innerText = `${used} / Unlimited`;
-              usageProgress.style.width = "100%";
-            } else {
-              usageValEl.innerText = `${used} / ${limit}`;
-              usageProgress.style.width = `${Math.min((used / limit) * 100, 100)}%`;
-            }
+        if (usageValEl && usageProgress) {
+          if (plan === "diamond") {
+            usageValEl.innerText = `${used} / Unlimited`;
+            usageProgress.style.width = "100%";
+          } else {
+            usageValEl.innerText = `${used} / ${limit}`;
+            usageProgress.style.width = `${Math.min((used / limit) * 100, 100)}%`;
           }
         }
-      });
-    </script>
-  </body>
+      }
+    });
+  </script>
+</body>
+
 </html>
